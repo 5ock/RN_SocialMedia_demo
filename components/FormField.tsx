@@ -20,7 +20,7 @@ const FormField = (props: FormFieldProps) => {
     return (
         <View className={`space-y-2 ${otherStyles}`}>
             <Text className='text-base text-gray-100'>{ title }</Text>
-            <View className='border-2 focus:border-secondary w-full h-16 px-4 bg-[#1F1B2D]
+            <View className='border-2 border-[#222] focus:border-secondary w-full h-16 px-4 bg-[#1F1B2D]
                 rounded-2xl items-center flex-row'>
                 <TextInput
                     className='flex-1 text-white h-full'
