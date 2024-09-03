@@ -7,8 +7,10 @@ import { Link, router } from 'expo-router'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
 import { createUer } from '@/lib/appwrite'
+import { useGlobalContext } from '@/context/GlobalProvider'
 
 const SingUp = () => {
+    const { setUser, setIsLoggedIn } = useGlobalContext()
     const [ form, setForm ] = useState({
         email: '',
         password: '',
@@ -24,6 +26,8 @@ const SingUp = () => {
 
         try {
             const result = await createUer(form.email, form.password, form.username)
+            setUser(result)
+            setIsLoggedIn(true)
 
             router.replace('/home')
         } catch (error: any) {

@@ -1,10 +1,22 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { getCurUser } from '@/lib/appwrite'
 
-const defaultGlobalContext = {
+interface userTypes {
+    [key: string]: any
+}
+
+interface GlobalContextTypes {
+    isLoggedIn: boolean;
+    setIsLoggedIn: (val: boolean) => void;
+    user: userTypes,
+    setUser: (user: any) => void;
+    isLoading: boolean;
+}
+
+const defaultGlobalContext: GlobalContextTypes = {
     isLoggedIn: false,
     setIsLoggedIn: (value: boolean) => {},
-    user: null,
+    user: {},
     setUser: (user: any) => {},
     isLoading: true
 }
