@@ -9,17 +9,32 @@ export const config = {
     videoCollectionId: '66d5221300021036eedc',
     storageId: '66d5235f002f4fda3e84'
 }
+const { endpoint, platform, projectId, databaseId, userCollectionId,
+    videoCollectionId, storageId } = config
 
 const client = new Client()
 client
-    .setEndpoint(config.endpoint)
-    .setProject(config.projectId)
-    .setPlatform(config.platform)
+    .setEndpoint(endpoint)
+    .setProject(projectId)
+    .setPlatform(platform)
 
 const account = new Account(client)
 const avatars = new Avatars(client)
 const databases = new Databases(client)
 
+// sign in
+export const signIn = async(email: string, password: string) => {
+    try {
+        const session = await account.createEmailPasswordSession(email, password)
+
+        return session
+    } catch (error: any) {
+        throw new Error(error)
+    }
+}
+
+
+// user
 export const createUer = async(email: string, password: string, username: string) => {
     try {
         const newAccount = await account.create(
@@ -36,8 +51,8 @@ export const createUer = async(email: string, password: string, username: string
 
         await signIn(email, password)
         const newUser = await databases.createDocument(
-            config.databaseId,
-            config.userCollectionId,
+            databaseId,
+            userCollectionId,
             ID.unique(),
             {
                 accountId: newAccount.$id,
@@ -54,16 +69,6 @@ export const createUer = async(email: string, password: string, username: string
     }
 }
 
-export const signIn = async(email: string, password: string) => {
-    try {
-        const session = await account.createEmailPasswordSession(email, password)
-
-        return session
-    } catch (error: any) {
-        throw new Error(error)
-    }
-}
-
 export const getCurUser = async() => {
     try {
         const curAccount = await account.get()
@@ -72,8 +77,8 @@ export const getCurUser = async() => {
             throw Error
 
         const curUser = await databases.listDocuments(
-            config.databaseId,
-            config.userCollectionId,
+            databaseId,
+            userCollectionId,
             [Query.equal('accountId', curAccount.$id)]
         )
 
@@ -83,5 +88,19 @@ export const getCurUser = async() => {
         return curUser.documents[0]
     } catch (error) {
         console.log(error)
+    }
+}
+
+// posts
+export const getAllPosts = async() => {
+    try {
+        const posts = await databases.listDocuments(
+            databaseId,
+            videoCollectionId
+        )
+
+        return posts.documents
+    } catch (error: any) {
+        throw new Error(error)
     }
 }
