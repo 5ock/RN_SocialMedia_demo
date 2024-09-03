@@ -36,7 +36,6 @@ const TrendingItem = memo(({ activeItem, item }: any) => {
                     shouldPlay
                     onPlaybackStatusUpdate={(status: AVPlaybackStatus) => {
                         if(status.isLoaded && status.didJustFinish) {
-                            console.log(123123213)
                             setPlay(false)
                         }
                     }}

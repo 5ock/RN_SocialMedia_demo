@@ -1,14 +1,5 @@
 import { Account, Avatars, Client, Databases, ID, Query, Storage, ImageGravity } from 'react-native-appwrite'
-
-export const config = {
-    endpoint: 'https://cloud.appwrite.io/v1',
-    platform: 'com.rnpractice',
-    projectId: '66d52070002de0aa008b',
-    databaseId: '66d521d1001616b0fc39',
-    userCollectionId: '66d521e90037c8d17a3f',
-    videoCollectionId: '66d5221300021036eedc',
-    storageId: '66d5235f002f4fda3e84'
-}
+import { config } from './config'
 const { endpoint, platform, projectId, databaseId, userCollectionId,
     videoCollectionId, storageId } = config
 
